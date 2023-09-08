@@ -6,9 +6,11 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody playerRb;
     private GameObject focalPoint;
+    public GameObject powerupIndicator;
     public float speed = 5.0f;
     public float powerupStrength = 5.0f;
     public bool hasPowerup = false;
+    private Vector3 offset = new Vector3(0, -0.5f, 0);
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
         float forwardInput = Input.GetAxis("Vertical");
         // moves the player in the direction that our camera is facing
         playerRb.AddForce(focalPoint.transform.forward * forwardInput * speed);
+        powerupIndicator.transform.position = transform.position + offset;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Powerup"))
         {
             hasPowerup = true;
+            powerupIndicator.gameObject.SetActive(true);
             Destroy(other.gameObject);
             // enables the IEnumerator function to start outside the Update method. 
             // Feel free to research more on it, and interfaces in general.
@@ -41,6 +45,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(7);
         hasPowerup = false;
+        powerupIndicator.gameObject.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision)
