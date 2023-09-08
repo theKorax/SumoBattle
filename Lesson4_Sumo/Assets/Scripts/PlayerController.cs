@@ -30,7 +30,17 @@ public class PlayerController : MonoBehaviour
         {
             hasPowerup = true;
             Destroy(other.gameObject);
+            // enables the IEnumerator function to start outside the Update method. 
+            // Feel free to research more on it, and interfaces in general.
+            StartCoroutine(PowerupCountdownRoutine());
         }
+    }
+
+    // starts a countdown then performs instructions after the countdown time has elapsed
+    IEnumerator PowerupCountdownRoutine()
+    {
+        yield return new WaitForSeconds(7);
+        hasPowerup = false;
     }
 
     private void OnCollisionEnter(Collision collision)
