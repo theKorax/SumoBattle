@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private GameObject focalPoint;
     public GameObject powerupIndicator;
     public float speed = 5.0f;
-    public float powerupStrength = 5.0f;
+    private float powerupStrength = 7.0f;
     public bool hasPowerup = false;
     private Vector3 offset = new Vector3(0, -0.5f, 0);
     // Start is called before the first frame update
